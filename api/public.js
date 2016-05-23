@@ -33,8 +33,6 @@ function sendQuery(command, pair, callback) {
         "method": "GET"
     };
 
-    console.log(opts)
-
     // Send request
     request(opts, function(error, response, body) {
         if (!error && response && response.statusCode == 200) {
@@ -56,58 +54,32 @@ function sendQuery(command, pair, callback) {
     });
 }
 
+function apiCall(name, pair, callback) {
+  sendQuery(name, pair, (err, response) => {
+      if (err) {
+          // Call back with decoupled error info
+          callback(err, null);
+      } else {
+          // Call back with response
+          callback(null, response);
+      }
+  });
+}
+
 
 apiPublic.getDepth = function(pair, callback) {
-    // Send returnTicker query
-
-    sendQuery("depth", pair, (err, response) => {
-        if (err) {
-            // Call back with decoupled error info
-            callback({"msg": err.msg}, null);
-        } else {
-            // Call back with response
-            callback(null, response);
-        }
-    });
+  apiCall("depth", pair, callback)
 }
 
 apiPublic.getTicker = function(pair, callback) {
-    // Send returnTicker query
-    sendQuery("ticker", pair, (err, response) => {
-        if (err) {
-            // Call back with decoupled error info
-            callback({"msg": err.msg}, null);
-        } else {
-            // Call back with response
-            callback(null, response);
-        }
-    });
+  apiCall("ticker", pair, callback)
 }
 
 apiPublic.getTrades = function(pair, callback) {
-    // Send returnTicker query
-    sendQuery("trades", pair, (err, response) => {
-        if (err) {
-            // Call back with decoupled error info
-            callback({"msg": err.msg}, null);
-        } else {
-            // Call back with response
-            callback(null, response);
-        }
-    });
+  apiCall("trades", pair, callback)
 }
-
 apiPublic.getTradeFee = function(pair, callback) {
-    // Send returnTicker query
-    sendQuery("fee", pair, (err, response) => {
-        if (err) {
-            // Call back with decoupled error info
-            callback({"msg": err.msg}, null);
-        } else {
-            // Call back with response
-            callback(null, response);
-        }
-    });
+  apiCall("fee", pair, callback)
 }
 
 

@@ -113,34 +113,29 @@ function sendQuery(method, params, callback) {
 }
 
 
+function apiCall(name, params, callback) {
+  sendQuery(name, params, (err, response) => {
+      if (err) {
+          // Call back with decoupled error info
+          callback(err, null);
+      } else {
+          // Call back with response
+          callback(null, response);
+      }
+  });
+}
+
+
 apiTrade.getInfo = function(params, callback) {
-    // Send returnTicker query
-    sendQuery("getInfo", {}, (err, response) => {
-        if (err) {
-            // Call back with decoupled error info
-            callback({"msg": err.msg}, null);
-        } else {
-            // Call back with response
-            callback(null, response);
-        }
-    });
+    apiCall("getInfo", {}, callback)
 }
 
 apiTrade.TransHistory = function(params, callback) {
-    var queryParams = {}
-    if(params)
-      queryParams = params
+    apiCall("TransHistory", params, callback)
+}
 
-    // Send returnTicker query
-    sendQuery("TransHistory", queryParams, (err, response) => {
-        if (err) {
-            // Call back with decoupled error info
-            callback({"msg": err.msg}, null);
-        } else {
-            // Call back with response
-            callback(null, response);
-        }
-    });
+apiTrade.TradeHistory = function(params, callback) {
+    apiCall("TradeHistory", params, callback)
 }
 
 

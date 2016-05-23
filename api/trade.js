@@ -138,6 +138,28 @@ apiTrade.TradeHistory = function(params, callback) {
     apiCall("TradeHistory", params, callback)
 }
 
+apiTrade.ActiveOrders = function(params, callback) {
+    apiCall("ActiveOrders", params, callback)
+}
+apiTrade.Trade = function(params, callback) {
+    apiCall("Trade", params, callback)
+}
+apiTrade.CancelOrder = function(params, callback) {
+    apiCall("CancelOrder", params, callback)
+}
+
+apiTrade.Withdraw = function(params, callback) {
+    apiCall("WithdrawCrypt", params, callback)
+}
+
+apiTrade.CreateVoucher = function(params, callback) {
+    apiCall("CreateVoucher", params, callback)
+}
+
+apiTrade.RedeemVoucher = function(params, callback) {
+    apiCall("RedeemVoucher", params, callback)
+}
+
 
 module.exports = function(params) {
   apiKey = params.key;
